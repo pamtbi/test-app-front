@@ -1,0 +1,113 @@
+// Перемінні кольорів
+$primary: #4f46e5
+$primary-light: #6366f1
+$background: #f9fafb
+$text: #1f2937
+$muted: #6b7280
+$card-bg: #ffffff
+$border: #e5e7eb
+$radius: 12px
+$shadow: 0 4px 20px rgba(0, 0, 0, 0.05)
+
+.container
+  padding: 24px
+
+.title
+  font-size: 32px
+  font-weight: bold
+  color: $text
+  margin-bottom: 16px
+
+.subtitle
+  font-size: 24px
+  font-weight: 600
+  color: $primary
+  margin: 16px 0
+
+.users
+  display: grid
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr))
+  gap: 24px
+  padding: 16px 0
+  align-items: start
+
+.singleResult
+  opacity: 0.5
+  pointer-events: none
+
+.deleteUser
+  background: #F44336
+
+.user
+  background: $card-bg
+  border: 1px solid $border
+  border-radius: $radius
+  padding: 16px
+  box-shadow: $shadow
+  display: flex
+  flex-direction: column
+  gap: 12px
+
+.username, .role
+  font-size: 16px
+  font-weight: 500
+  color: $text
+
+.role
+  color: $muted
+
+.results
+  margin-top: 8px
+  background: #f3f4f6
+  border-radius: 8px
+  padding: 12px
+  display: flex
+  flex-direction: column
+  gap: 16px
+
+.resultsTitle
+  font-size: 18px
+  font-weight: 600
+  color: $primary
+
+.result
+  background: $card-bg
+  border-radius: 8px
+  padding: 12px
+  box-shadow: $shadow
+  border: 1px solid $border
+
+.date
+  font-size: 14px
+  color: $muted
+  margin-bottom: 4px
+
+.score
+  font-weight: 600
+  margin-bottom: 8px
+
+.answers
+  display: flex
+  flex-direction: column
+  gap: 8px
+
+.answerWrapper
+  background: #f9fafb
+  border-left: 4px solid #F44336
+  padding: 8px 12px
+  border-radius: 6px
+  &.correct
+    border-color: #4CAF50
+
+.question
+  font-weight: 500
+  color: $text
+
+.answer
+  color: $muted
+  font-size: 14px
+
+.noUsers
+  font-style: italic
+  color: $muted
+  padding: 12px

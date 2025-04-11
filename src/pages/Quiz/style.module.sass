@@ -1,0 +1,76 @@
+.container
+  max-width: 600px
+  margin: 40px auto
+  padding: 30px
+  background: #f5f5f5
+  border-radius: 12px
+  display: flex
+  flex-direction: column
+  gap: 20px
+
+.question
+  background: #fff
+  padding: 20px
+  border-radius: 10px
+  border: 1px solid #ddd
+  display: flex
+  flex-direction: column
+  gap: 10px
+
+.questionText
+  font-size: 18px
+  font-weight: 600
+  color: #333
+  margin: 0
+
+.options
+  list-style: none
+  padding: 0
+  margin: 0
+  display: flex
+  flex-direction: column
+  gap: 8px
+
+  li
+    padding: 10px 14px
+    border: 1px solid #ccc
+    border-radius: 8px
+    background: #fafafa
+    cursor: pointer
+    transition: background 0.2s, border-color 0.2s
+
+    &:hover
+      background: #eaeaea
+      border-color: #aaa
+
+.option
+  cursor: pointer
+  background: #eaeaea
+  padding: 4px 8px
+  border-radius: 4px
+  display: flex
+  align-items: center
+  color: #333
+  transition: background 0.2s
+  & input 
+    display: none
+  &:hover
+    background: #ddd
+  &:has(input:checked)
+    background: #4a4a4a
+    color: #fff
+
+.logoutButton
+  position: absolute
+  top: 10px
+  right: 10px
+
+.buttons
+  display: flex
+  gap: 10px
+  align-items: center
+  justify-content: center
+
+.error
+  text-align: center
+  color: #F44336
