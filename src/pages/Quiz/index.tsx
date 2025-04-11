@@ -94,8 +94,10 @@ export default function QuizPage() {
     else word = "балів";
     return (
       <div className={style.container}>
-        <h1>Ваша оцінка: {score} {word}</h1>
-        <Button onClick={resetQuiz}>Хочу пройти знову</Button>
+        <div className={style.question}>
+          <h1>Ваша оцінка: {score} {word}</h1>
+          <Button onClick={resetQuiz}>Хочу пройти знову</Button>
+        </div>
       </div>
     )
   }
