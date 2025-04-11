@@ -3,8 +3,9 @@ import style from "./style.module.sass";
 import { link } from "@/utils/link";
 import {post} from "@/utils/post";
 import { useUser } from "@/providers/userProvider";
-
 import {Button} from "@/components/Button"
+import eye from "@/assets/eye-solid.svg";
+import eyeSlash from "@/assets/eye-slash-solid.svg";
 
 interface FormData {
   username: string;
@@ -13,11 +14,11 @@ interface FormData {
 
 const AuthPage = () => {
   const initValues: FormData = { username: '', password: '' };
-  
   const [isLogin, setIsLogin] = useState<boolean>(true);
   const [formData, setFormData] = useState<FormData>(initValues);
   const [error, setError] = useState<string>('');
   const [success, setSuccess] = useState<string>('');
+  const [isPassword, setIsPassword] = useState<boolean>(true);
   const userProvider = useUser();
 
   const toggleMode = () => {
@@ -66,19 +67,23 @@ const AuthPage = () => {
           value={formData.username}
           onChange={handleChange}
         />
-        <input
-          name="password"
-          placeholder="Пароль"
-          type="password"
-          required
-          value={formData.password}
-          onChange={handleChange}
-        />
+        <div className={style.password}>
+          <input
+            name="password"
+            placeholder="Пароль"
+            type={isPassword ? 'password' : 'text'}
+            required
+            value={formData.password}
+            onChange={handleChange}
+          />
+          <button type="button" onClick={() => setIsPassword((prev) => !prev)}>
+            <img src={isPassword ? eye : eyeSlash} alt="eye" />
+          </button>
+        </div>
         <Button type="submit">
           {isLogin ? 'Увійти' : 'Зареєструватися'}
         </Button>
       </form>
-
       <div className={style.switch}>
         {isLogin ? "Немає акаунта?" : "Вже є акаунт?"}
         <Button onClick={toggleMode}>
