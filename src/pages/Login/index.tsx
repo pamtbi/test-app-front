@@ -7,6 +7,7 @@ import {Button} from "@/components/Button"
 import eye from "@/assets/eye-solid.svg";
 import eyeSlash from "@/assets/eye-slash-solid.svg";
 import WebApp from '@twa-dev/sdk';
+import clsx from 'clsx';
 
 interface FormData {
   username: string;
@@ -22,6 +23,8 @@ const AuthPage = () => {
   const [isPassword, setIsPassword] = useState<boolean>(true);
   const [initData, setInitData] = useState<string | null>(null);
   const userProvider = useUser();
+
+  const [loading, setLoading] = useState(false);
 
   const toggleMode = () => {
     setIsLogin((prev) => !prev);
@@ -39,6 +42,7 @@ const AuthPage = () => {
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    setLoading(true);
     e.preventDefault();
     setError('');
     setSuccess('');
@@ -46,6 +50,8 @@ const AuthPage = () => {
     const endpoint = link(isLogin ? '/api/auth/login' : '/api/auth/register');
 
     const { response, data } = await post(endpoint, formData);
+
+    setLoading(false);
 
     if (!response?.ok) {
       setError(data.message || 'Щось пішло не так');
@@ -65,6 +71,7 @@ const AuthPage = () => {
   }, []);
 
   const loginWithTelegram = async () => {
+    setLoading(true);
     try {
       const { response, data } = await post(link('/api/auth/telegram'), { initData });
   
@@ -77,6 +84,8 @@ const AuthPage = () => {
     } catch (err) {
       setError('Помилка при авторизації');
       console.error('Login error:', err);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -105,8 +114,11 @@ const AuthPage = () => {
             <img src={isPassword ? eye : eyeSlash} alt="eye" />
           </button>
         </div>
-        <Button type="submit">
-          {isLogin ? 'Увійти' : 'Зареєструватися'}
+        <Button type="submit" disabled={loading} className={style.button}>
+          {loading && (
+            <div className={clsx(style.loader, "loader__item")}></div>
+          )}
+          <span className={clsx(loading && style.hidden)}>{isLogin ? 'Увійти' : 'Зареєструватися'}</span>
         </Button>
         {initData && (
           <Button onClick={loginWithTelegram} type="button">
