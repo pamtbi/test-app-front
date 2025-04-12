@@ -4,7 +4,6 @@ import { link } from "@/utils/link";
 import style from './style.module.sass';
 import { useUser } from '@/providers/userProvider';
 import { post } from '@/utils/post';
-
 import {Button} from "@/components/Button"
 
 type answerType = {
@@ -105,7 +104,7 @@ export default function QuizPage() {
   return (
     <div className={style.container}>
       <div className={style.question}>
-        <h1>Ласкаво просимо {userProvider?.user?.username}</h1>
+        <h1>Ласкаво просимо {userProvider?.user?.username || userProvider?.user?.telegramName}</h1>
         <h3 className={style.questionText}>{activeQuestion?.question}</h3>
         <ul className={style.options}>
           {activeQuestion?.options.map((opt, j) => {

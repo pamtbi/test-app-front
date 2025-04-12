@@ -5,7 +5,6 @@ import { link } from '@/utils/link';
 import style from "./style.module.sass"
 import {formatDate} from "@/utils/formatDate"
 import clsx from 'clsx';
-
 import {Button} from "@/components/Button"
 import {useModal} from "@/providers/modalProvider"
 
@@ -78,13 +77,15 @@ const Admin = () => {
       <h1 className={style.title}>Ласкаво просимо, {userProvider?.user?.username}</h1>
       <h2 className={style.subtitle}>Список користувачів {users?.length ? `(${users.length})` : "порожній"}</h2>
       <div className={style.users}>
-        {users?.length ? users.map(({username, id, results}: User) => {
+        {users?.length ? users.map(({username, id, results, telegramName}: User) => {
+          const name = username || telegramName || "";
           return (
             <div className={style.user} key={id}>
-              <div className={style.username}>Им'я користувача: {username}</div>
+              <div className={style.username}>Им'я користувача: {name}</div>
+              <div className={style.username}>Спосіб входу: {telegramName ? "Telegram" : "Звичайний"}</div>
               <Button onClick={() => {
                 modal?.setId(id);
-                modal?.setName(username);
+                modal?.setName(name);
                 modal?.setOpen(true);
               }} className={style.deleteUser}>Видалити користувача</Button>
               <Results results={results}></Results>
@@ -93,7 +94,6 @@ const Admin = () => {
         }) : ""}
       </div>
     </div>
-    
   )
 }
 

@@ -23,15 +23,12 @@ type ModalProviderProps = {
   children: React.ReactNode;
 };
 
-
 export const ModalProvider: FC<ModalProviderProps> = ({ children }) => {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
   const [id, setId] = useState("");
   const [message, setMessage] = useState("");
   const userProvider = useUser();
-
-  
 
   const closeModal = () => {
     setOpen(false);

@@ -4,11 +4,11 @@ import {link} from "@/utils/link"
 import { useNavigate } from "react-router-dom";
 import {get} from "@/utils/get"
 
-
 export interface User {
   id: string;
-  username: string;
+  username?: string;
   role: string;
+  telegramName?: string;
   results?: {
     score: number;
     answers: any;
@@ -85,8 +85,6 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
       navigate("/login")
     }
   }, [user, navigate, token]);
-
-  
 
   return (
     <UserContext.Provider value={{ user, setUser, logout, setToken, token }}>
