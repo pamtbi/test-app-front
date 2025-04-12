@@ -122,7 +122,10 @@ const AuthPage = () => {
         </Button>
         {initData && (
           <Button onClick={loginWithTelegram} type="button">
-            Увійти через Telegram
+            {loading && (
+              <div className={clsx(style.loader, "loader__item")}></div>
+            )}
+            <span className={clsx(loading && style.hidden)}>Увійти через Telegram</span>
           </Button>
         )}
       </form>
