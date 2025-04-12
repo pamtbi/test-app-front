@@ -121,7 +121,7 @@ const AuthPage = () => {
           <span className={clsx(loading && style.hidden)}>{isLogin ? 'Увійти' : 'Зареєструватися'}</span>
         </Button>
         {initData && (
-          <Button onClick={loginWithTelegram} type="button">
+          <Button onClick={loginWithTelegram} type="button" disabled={loading} className={style.button}>
             {loading && (
               <div className={clsx(style.loader, "loader__item")}></div>
             )}
