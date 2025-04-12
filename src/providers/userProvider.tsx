@@ -4,6 +4,7 @@ import {link} from "@/utils/link"
 import { useNavigate } from "react-router-dom";
 import {get} from "@/utils/get"
 
+
 export interface User {
   id: string;
   username: string;
@@ -41,7 +42,6 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
   const logout = useCallback(() => {
     setUser(null);
     setToken(null);
-    // console.log("Logout successful");
   }, []);
 
   const login = useCallback(async () => {
@@ -85,6 +85,8 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
       navigate("/login")
     }
   }, [user, navigate, token]);
+
+  
 
   return (
     <UserContext.Provider value={{ user, setUser, logout, setToken, token }}>

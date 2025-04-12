@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, FormEvent } from 'react';
+import { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import style from "./style.module.sass";
 import { link } from "@/utils/link";
 import {post} from "@/utils/post";
@@ -6,6 +6,7 @@ import { useUser } from "@/providers/userProvider";
 import {Button} from "@/components/Button"
 import eye from "@/assets/eye-solid.svg";
 import eyeSlash from "@/assets/eye-slash-solid.svg";
+import WebApp from '@twa-dev/sdk';
 
 interface FormData {
   username: string;
@@ -19,6 +20,7 @@ const AuthPage = () => {
   const [error, setError] = useState<string>('');
   const [success, setSuccess] = useState<string>('');
   const [isPassword, setIsPassword] = useState<boolean>(true);
+  const [initData, setInitData] = useState<string | null>(null);
   const userProvider = useUser();
 
   const toggleMode = () => {
@@ -55,6 +57,29 @@ const AuthPage = () => {
     userProvider?.setToken(data.token);
   };
 
+  useEffect(() => {
+    WebApp.ready();
+    WebApp.expand();
+
+    setInitData(WebApp.initData)
+  }, []);
+
+  const loginWithTelegram = async () => {
+    try {
+      const { response, data } = await post(link('/api/auth/telegram'), { initData });
+  
+      if (!response?.ok) {
+        setError(data.message || 'Щось пішло не так');
+        return;
+      }
+  
+      userProvider?.setToken(data.token);
+    } catch (err) {
+      setError('Помилка при авторизації');
+      console.error('Login error:', err);
+    }
+  }
+
   return (
     <div className={style.container}>
       <h2>{isLogin ? 'Вхід' : 'Реєстрація'}</h2>
@@ -83,6 +108,11 @@ const AuthPage = () => {
         <Button type="submit">
           {isLogin ? 'Увійти' : 'Зареєструватися'}
         </Button>
+        {initData && (
+          <Button onClick={loginWithTelegram} type="button">
+            Увійти через Telegram
+          </Button>
+        )}
       </form>
       <div className={style.switch}>
         {isLogin ? "Немає акаунта?" : "Вже є акаунт?"}
