@@ -3,6 +3,7 @@ import { useState, createContext, FC, useContext, useEffect, useCallback } from 
 import {link} from "@/utils/link"
 import { useNavigate } from "react-router-dom";
 import {get} from "@/utils/get"
+import WebApp from '@twa-dev/sdk';
 
 export interface User {
   id: string;
@@ -85,6 +86,13 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
       navigate("/login")
     }
   }, [user, navigate, token]);
+
+  useEffect(() => {
+    const tgUser = WebApp.initDataUnsafe.user;
+    if(user?.username !== tgUser?.username) {
+      logout();
+    }
+  }, [user, logout]);
 
   return (
     <UserContext.Provider value={{ user, setUser, logout, setToken, token }}>
