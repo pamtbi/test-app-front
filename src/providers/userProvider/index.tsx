@@ -89,9 +89,8 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
 
   useEffect(() => {
     const tgUser = WebApp.initDataUnsafe.user;
-    if(user?.username !== tgUser?.username) {
-      logout();
-    }
+    if(!tgUser || !user || tgUser.username === user.username) return;
+    logout();
   }, [user, logout]);
 
   return (
