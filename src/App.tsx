@@ -3,7 +3,6 @@ import AuthPage from './pages/Login';
 import QuizPage, { LogoutButton } from './pages/Quiz';
 import Admin from './pages/Admin';
 import { Routes, Route } from 'react-router-dom';
-
 const App = () => {
   return (
     <>
